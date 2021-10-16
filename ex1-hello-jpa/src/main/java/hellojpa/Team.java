@@ -7,20 +7,14 @@ import java.util.List;
 @Entity
 public class Team {
 
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue
     @Column(name = "TEAM_ID")
     private Long id;
-
     private String name;
 
-    @OneToMany(mappedBy = "team")   // 뭐랑 연결되어 있는지 나타내는
-    List<Member> members = new ArrayList<Member>();   // 관례적으로 초기화 해둠
-
-    public void addMember(Member member) {
-        member.setTeam(this);
-        members.add(member);
-    }
+    @OneToMany
+    @JoinColumn(name = "TEAM_ID")   // 일대다 단방향은 @JoinColumn이 필수
+    private List<Member> members = new ArrayList<>();
 
     public Long getId() {
         return id;
