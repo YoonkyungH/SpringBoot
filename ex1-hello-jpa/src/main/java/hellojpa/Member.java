@@ -13,6 +13,11 @@ public class Member {
     @Column(name = "USERNAME")
     private String username;
 
+    @ManyToOne
+    @JoinColumn(name = "TEAM_ID", insertable = false, updatable = false)
+    // 이렇게 false로 넣어주면 충돌이 발생하지 않고 읽기 전용이 됨
+    private Team team;
+
     public Long getId() {
         return id;
     }
