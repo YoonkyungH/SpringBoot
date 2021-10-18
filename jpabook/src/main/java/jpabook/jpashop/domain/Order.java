@@ -5,7 +5,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Order {
+@Entity
+@Table(name = "ORDERS")
+public class Order extends BaseEntity {
 
     @Id
     @GeneratedValue
@@ -15,6 +17,10 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
+
+    @OneToOne
+    @JoinColumn(name = "DELIVERY_ID")
+    private Delivery delivery;
 
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems = new ArrayList<>();

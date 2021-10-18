@@ -1,13 +1,11 @@
 package jpabook.jpashop.domain;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Member {
+@Entity
+public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue
