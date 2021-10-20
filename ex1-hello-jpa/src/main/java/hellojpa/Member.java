@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity // 스프링이 뜰 때 "애는 jpa를 사용하는 애구나" 알 수 있음
-public class Member extends BaseEntity {
+public class Member {
 
     @Id
     @GeneratedValue
@@ -17,17 +17,25 @@ public class Member extends BaseEntity {
     @Column(name = "USERNAME")
     private String username;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "TEAM_ID", insertable = false, updatable = false)
-    // 이렇게 false로 넣어주면 충돌이 발생하지 않고 읽기 전용이 됨
-    private Team team;
+    // 기간 Period
+    @Embedded
+    private Period workPeriod;
 
-//    @OneToOne
-//    @JoinColumn(name = "LOCKER_ID")
-//    private Locker locker;
-//
-//    @OneToMany(mappedBy = "member")
-//    private List<MemberProduct> memberProducts = new ArrayList<>();
+    // 주소 Address
+    @Embedded
+    private Address homeAddress;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name="city",
+            column = @Column(name="WORK_CITY")),
+            @AttributeOverride(name="street",
+            column = @Column(name="WORK_STREET")),
+            @AttributeOverride(name="zipcode",
+            column = @Column(name="WORK_ZIPCODE"))
+    })
+
+    private Address workAddress;
 
     public Long getId() {
         return id;
@@ -43,5 +51,21 @@ public class Member extends BaseEntity {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public Period getWorkPeriod() {
+        return workPeriod;
+    }
+
+    public void setWorkPeriod(Period workPeriod) {
+        this.workPeriod = workPeriod;
+    }
+
+    public Address getHomeAddress() {
+        return homeAddress;
+    }
+
+    public void setHomeAddress(Address homeAddress) {
+        this.homeAddress = homeAddress;
     }
 }
