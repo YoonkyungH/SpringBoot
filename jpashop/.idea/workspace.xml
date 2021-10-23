@@ -4,7 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cd8a518-af04-4213-b5ca-430f83e02699" name="Changes" comment="" />
+    <list default="true" id="0e3ba517-e2e2-4a0c-b0e1-081d9d844d9d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/jpabook/jpashop/Hello.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/jpabook/jpashop/HelloController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/jpabook/jpashop/Member.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/jpabook/jpashop/MemberRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/hello.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/jpabook/jpashop/MemberRepositoryTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex1-hello-jpa/src/main/java/hellojpa/Address.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ex1-hello-jpa/src/main/java/hellojpa/Address.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex1-hello-jpa/src/main/java/hellojpa/AddressEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ex1-hello-jpa/src/main/java/hellojpa/AddressEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex1-hello-jpa/src/main/java/hellojpa/JpaMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ex1-hello-jpa/src/main/java/hellojpa/JpaMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex1-hello-jpa/src/main/java/hellojpa/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ex1-hello-jpa/src/main/java/hellojpa/Member.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jpql/src/main/java/jpql/JpaMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/../jpql/src/main/java/jpql/JpaMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jpql/src/main/java/jpql/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/../jpql/src/main/java/jpql/Member.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jpql/target/classes/jpql/JpaMain.class" beforeDir="false" afterPath="$PROJECT_DIR$/../jpql/target/classes/jpql/JpaMain.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jpql/target/classes/jpql/Member.class" beforeDir="false" afterPath="$PROJECT_DIR$/../jpql/target/classes/jpql/Member.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,21 +33,65 @@
       <ProjectState />
     </projectState>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="Class" />
+        <option value="JUnit4 Test Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectId" id="1zcLo9yAslqrVEUp31SorwN7bSx" />
+  <component name="ProjectId" id="1zsx29frBmpYZyhUOEUaUtoCC2i" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/build.gradle" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
   </component>
-  <component name="RunManager">
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="jpabook.jpashop" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.MemberRepositoryTest">
+    <configuration name="MemberRepositoryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="jpashop.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="jpabook.jpashop.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="jpabook.jpashop" />
+      <option name="MAIN_CLASS_NAME" value="jpabook.jpashop.MemberRepositoryTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="JpashopApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="jpashop.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="jpabook.jpashop.JpashopApplication" />
@@ -37,20 +99,36 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.MemberRepositoryTest" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="6cd8a518-af04-4213-b5ca-430f83e02699" name="Changes" comment="" />
-      <created>1634442602163</created>
+      <changelist id="0e3ba517-e2e2-4a0c-b0e1-081d9d844d9d" name="Changes" comment="" />
+      <created>1634950387327</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1634442602163</updated>
-      <workItem from="1634442603590" duration="652000" />
+      <updated>1634950387327</updated>
+      <workItem from="1634950388744" duration="4232000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
