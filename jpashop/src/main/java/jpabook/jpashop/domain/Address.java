@@ -12,4 +12,13 @@ public class Address {
     private String street;
     private String zipcode;
 
+    // protected까진 허용해줌
+    protected Address() {  // 기본 생성자
+    }
+
+    public Address(String city, String street, String zipcode) {
+        this.city = city;
+        this.street = street;
+        this.zipcode = zipcode;
+    }
 }
