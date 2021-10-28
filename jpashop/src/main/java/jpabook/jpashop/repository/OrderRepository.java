@@ -70,7 +70,7 @@ public class OrderRepository {
             jpql += " m.name like :name";
         }
 
-        TypedQuery<Order> query = em.createQuery(jpql, Order.class) .setMaxResults(1000); //최대 1000건
+        TypedQuery<Order> query = em.createQuery(jpql, Order.class).setMaxResults(1000); //최대 1000건
         if (orderSearch.getOrderStatus() != null) {
             query = query.setParameter("status", orderSearch.getOrderStatus());
         }
@@ -110,6 +110,16 @@ public class OrderRepository {
         TypedQuery<Order> query = em.createQuery(cq).setMaxResults(1000); //최대 1000건
         return query.getResultList();
 
-        }
+    }
+
+    public List<Order> findAllWithMemberDelivery() {
+        // 한 번의 쿼리로 order, member, delivery를 조인한 다음 select 절에 다 넣고 힌 번에 다 땡겨옴
+        return em.createQuery(
+                "select o from Order o" +
+                        " join fetch o.member m" +
+                        " join fetch o.delivery d", Order.class
+        ).getResultList();
+    }
+
 
 }
