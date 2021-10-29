@@ -64,6 +64,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="jpabook.jpashop.repository.order.query" />
       <recent name="jpabook.jpashop.domain" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
@@ -185,7 +186,7 @@
       <updated>1634950387327</updated>
       <workItem from="1634950388744" duration="55930000" />
       <workItem from="1635308424488" duration="3249000" />
-      <workItem from="1635315384290" duration="19067000" />
+      <workItem from="1635315384290" duration="26221000" />
     </task>
     <servers />
   </component>
