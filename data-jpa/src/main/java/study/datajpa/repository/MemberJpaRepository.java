@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class MemberJpaRepository {
@@ -17,6 +18,28 @@ public class MemberJpaRepository {
     public Member save(Member member) {
         em.persist(member);
         return member;
+    }
+
+    public void delete(Member member) {
+        em.remove(member);
+    }
+
+    public List<Member> findAll() {
+        // Member가 Member entity를 의미(JPQL은 테이블을 대상으로 하는게 X 객체를 대상으로)
+        List<Member> result = em.createQuery("select m from Member m", Member.class)
+                .getResultList();
+
+        return result;
+    }
+
+    public Optional<Member> findById(Long id) {
+        Member member = em.find(Member.class, id);
+        return Optional.ofNullable(member);
+    }
+
+    public long count() {
+        return em.createQuery("select count(m) from Member m", Long.class)
+                .getSingleResult();
     }
 
     public Member find(Long id) {
