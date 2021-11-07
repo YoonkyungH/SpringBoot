@@ -151,5 +151,5 @@ class MemberRepositoryTest {    // JPA 테스트
         }
     }
 
-    
+
 }

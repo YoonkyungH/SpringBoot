@@ -40,8 +40,8 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     List<Member> findByNames(@Param("names") Collection<String> names);
 
     // 스프링 데이터 JPA는 유연한 반환 타입 지원
-    List<Member> findByListUsername(String username);   // 컬렉션
-    Member findMemberByUsername(String username);   // 단건
-    Optional<Member> findOptionalByUsername(String username);   // 단건 Optional을 반환하는 경우
+//    List<Member> findByListUsername(String username);   // 컬렉션
+//    Member findMemberByUsername(String username);   // 단건
+//    Optional<Member> findOptionalByUsername(String username);   // 단건 Optional을 반환하는 경우
 }
 
