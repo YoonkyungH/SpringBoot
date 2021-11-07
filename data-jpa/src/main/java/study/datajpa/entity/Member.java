@@ -8,6 +8,10 @@ import javax.persistence.*;
 @Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)  // entity는 기본적으로 (파라미터가 없는)기본 생성자가 필요함. 기본 생성자를 두는 대신의 애노테이션
 @ToString(of = {"id", "user", "age"})
+@NamedQuery(
+        name = "Member.findByUsername",
+        query = "select m from Member m where m.username = :username"
+)
 public class Member {
 
     @Id @GeneratedValue
