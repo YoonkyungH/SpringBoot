@@ -4,6 +4,9 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 import study.datajpa.dto.MemberDto;
@@ -151,5 +154,33 @@ class MemberRepositoryTest {    // JPA 테스트
         }
     }
 
+    @Test
+    public void paging() {
+        // given
+        memberRepository.save(new Member("member1", 10));
+        memberRepository.save(new Member("member2", 10));
+        memberRepository.save(new Member("member3", 10));
+        memberRepository.save(new Member("member4", 10));
+        memberRepository.save(new Member("member5", 10));
 
+        int age = 10;
+
+        // 스프링 데이터 JPA는 페이지를 0부터 시작함
+        // PageRequest는 구현체
+        PageRequest pageRequest = PageRequest.of(0, 3, Sort.by(Sort.Direction.DESC, "username"));
+
+        // when
+        Page<Member> page = memberRepository.findByAge(age, pageRequest);
+        // Page면 totalcount 쿼리를 같이 날리므로 코드가 따로 필요없음
+
+        // then
+        List<Member> content = page.getContent();
+
+        assertThat(content.size()).isEqualTo(3);            // 3개까지 끌어와야하니까 3
+        assertThat(page.getTotalElements()).isEqualTo(5);   // 총 멤버 5명
+        assertThat(page.getNumber()).isEqualTo(0);          // getNumber: 페이지 번호를 가져옴.
+        assertThat(page.getTotalPages()).isEqualTo(2);      // 전체 페이지는 멤버 셋(첫페이지) 멤버 둘(다음 페이지) => 총 페이지 2개
+        assertThat(page.isFirst()).isTrue();                // 당연히 첫번째 페이지니까 ㅇㅇ
+        assertThat(page.hasNext()).isTrue();                // 다음 페이지가 있냐 ㅇㅇ
+    }
 }
