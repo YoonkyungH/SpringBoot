@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +13,8 @@ import study.datajpa.dto.MemberDto;
 import study.datajpa.entity.Member;
 import study.datajpa.entity.Team;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +29,8 @@ class MemberRepositoryTest {    // JPA 테스트
 
     @Autowired MemberRepository memberRepository;
     @Autowired TeamRepository teamRepository;
+    @PersistenceContext
+    EntityManager em;
 
     @Test
     public void testMember() {
@@ -171,17 +174,100 @@ class MemberRepositoryTest {    // JPA 테스트
         PageRequest pageRequest = PageRequest.of(0, 3, Sort.by(Sort.Direction.DESC, "username"));
 
         // when
-        Slice<Member> page = memberRepository.findByAge(age, pageRequest);
+        Page<Member> page = memberRepository.findByAge(age, pageRequest);
         // Page면 totalcount 쿼리를 같이 날리므로 코드가 따로 필요없음
+
+        // 이렇게 Dto로 변환할 수 있음(엔티티는 절대 dto로 변환해 반환해야 함. 엔티티 자체 외부 공개 XXX)
+        Page<MemberDto> toMap = page.map(m -> new MemberDto(m.getId(), m.getUsername(), null));
 
         // then
         List<Member> content = page.getContent();
 
         assertThat(content.size()).isEqualTo(3);            // 3개까지 끌어와야하니까 3
-//        assertThat(page.getTotalElements()).isEqualTo(5);   // 총 멤버 5명
+        assertThat(page.getTotalElements()).isEqualTo(5);   // 총 멤버 5명
         assertThat(page.getNumber()).isEqualTo(0);          // getNumber: 페이지 번호를 가져옴.
-//        assertThat(page.getTotalPages()).isEqualTo(2);      // 전체 페이지는 멤버 셋(첫페이지) 멤버 둘(다음 페이지) => 총 페이지 2개
+        assertThat(page.getTotalPages()).isEqualTo(2);      // 전체 페이지는 멤버 셋(첫페이지) 멤버 둘(다음 페이지) => 총 페이지 2개
         assertThat(page.isFirst()).isTrue();                // 당연히 첫번째 페이지니까 ㅇㅇ
         assertThat(page.hasNext()).isTrue();                // 다음 페이지가 있냐 ㅇㅇ
     }
+
+    @Test
+    public void bulkUpdate() {
+        // given
+        memberRepository.save(new Member("member1", 10));
+        memberRepository.save(new Member("member2", 19));
+        memberRepository.save(new Member("member3", 20));
+        memberRepository.save(new Member("member4", 21));
+        memberRepository.save(new Member("member5", 40));
+
+        // when
+        int resultCount = memberRepository.bulkAgePlus(20);
+//        em.flush();
+//        em.clear(); // 영속성 컨텍스트 안 데이터를 완전히 날려버림
+
+        List<Member> result = memberRepository.findByUsername("member5");
+        Member member5 = result.get(0);
+        System.out.println("member5 = " + member5);
+
+        // then
+        assertThat(resultCount).isEqualTo(3);
+    }
+
+    @Test
+    public void findMemberLazy() {
+        // given
+        // member1은 teamA를 참조
+        // member2는 teamB를 참조
+
+        Team teamA = new Team("teamA");
+        Team teamB = new Team("teamB");
+        teamRepository.save(teamA);
+        teamRepository.save(teamB);
+
+        Member member1 = new Member("member1", 10, teamA);
+        Member member2 = new Member("member2", 10, teamB);
+        memberRepository.save(member1);
+        memberRepository.save(member2);
+        
+        em.flush();
+        em.clear();
+        
+        // when
+        // select N + 1 문제 발생
+        List<Member> members = memberRepository.findEntityGraphByUsername("member1");
+
+        for (Member member : members) {
+            System.out.println("member = " + member.getUsername());
+            System.out.println("member.getTeam().getClass() = " + member.getTeam().getClass());
+            System.out.println("member.getTeam().getName( = " + member.getTeam().getName());
+        }
+    }
+
+    @Test
+    public void queryHint() {
+        // given
+        Member member1 = new Member("member1", 1);
+        memberRepository.save(member1);
+        em.flush();
+        em.clear();
+
+        // when
+        Member findMember = memberRepository.findReadOnlyByUsername("member1");
+        findMember.setUsername("member2");
+
+        em.flush();
+    }
+
+    @Test
+    public void lock() {
+        // given
+        Member member1 = new Member("member1", 1);
+        memberRepository.save(member1);
+        em.flush();
+        em.clear();
+
+        // when
+        List<Member> result = memberRepository.findLockByUsername("member1");
+    }
+
 }
