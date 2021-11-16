@@ -61,21 +61,25 @@ public class UserInfo implements UserDetails {
         return password;
     }
 
+    // 계정 만료 여부
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
+    // 계정 잠금 여부
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
+    // 패스워드 만료 여부
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
+    // 계정 사용 가능 여부
     @Override
     public boolean isEnabled() {
         return true;
