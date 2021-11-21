@@ -270,4 +270,8 @@ class MemberRepositoryTest {    // JPA 테스트
         List<Member> result = memberRepository.findLockByUsername("member1");
     }
 
+    @Test
+    public void callCustom() {
+        List<Member> result = memberRepository.findMemberCustom();
+    }
 }
