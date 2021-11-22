@@ -13,6 +13,13 @@ spring:
       format_sql: true
 #      show_sql: true
 
+  data:
+    web:
+      pageable:
+        default-page-size: 10 # 페이징시 default는 20개이므로 한 페이지에 10개씩 나오도록 하고싶을 때
+        max-page-size: 2000   # 최대 페이지 값
+        one-indexed-parameters: true  # 1부터 시작하는 인덱스 파라미터가 됨
+
 logging.level:
   org.hibernate.SQL: debug
 #  org.hibernate.type: trace
