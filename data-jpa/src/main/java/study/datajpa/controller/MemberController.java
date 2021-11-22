@@ -38,7 +38,7 @@ public class MemberController {
         // 실무에서는 위 코드를 인라인으로 처리함. (option + command + N)
     }
 
-    @PostConstruct
+//    @PostConstruct
     public void init() {    // 멤버 생성하기
         for (int i=0; i<100; i++) {
             memberRepository.save(new Member("user" + i, i));
