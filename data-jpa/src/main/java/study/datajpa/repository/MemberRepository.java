@@ -82,5 +82,18 @@ public interface MemberRepository extends JpaRepository<Member, Long>, MemberRep
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     List<Member> findLockByUsername(String username);
+
+    // 이렇게 반환 타입에 만들어둔 인터페이스 UsernameOnly를 넣으면 끝!
+    // 전체 엔티티가 아닌 원하는 정보만 가져올 수 있게됨
+    List<UsernameOnlyDto> findProjectionsByUsername(@Param("username") String username);
+
+    @Query(value = "select * from member where username = ?", nativeQuery = true)
+    Member findByNativeQuery(String username);
+
+    @Query(value = "select m.member_id as id, m.username, t.name as teamName " +
+            "from member m left join team t",
+            countQuery = "select count(*) from member",
+            nativeQuery = true)
+    Page<MemberProjection> findByNativeProjection(Pageable pageable);
 }
 
