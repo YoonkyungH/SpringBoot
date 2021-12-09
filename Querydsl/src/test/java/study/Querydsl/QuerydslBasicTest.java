@@ -16,6 +16,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 import study.Querydsl.dto.MemberDto;
 import study.Querydsl.dto.QMemberDto;
@@ -683,5 +684,90 @@ public class QuerydslBasicTest {
 
     private Predicate allEq(String usernameCond, Integer ageCond) {
         return usernameEq(usernameCond).and(ageEq(ageCond));
+    }
+
+    @Test
+    @Commit
+    public void bulkUpdate() {
+
+        // 변경 전
+        // member1 = 10 -> member1
+        // member2 = 20 -> member2
+        // member3 = 30 -> member3
+        // member4 = 40 -> member4
+
+        long count = queryFactory
+                .update(member)
+                .set(member.username, "비회원")
+                .where(member.age.lt(28))
+                .execute();
+
+        // 영속성 컨텍스트(1차 캐시)를 무시하고 바로 DB에 쿼리를 날리기 때문에 영속성 컨텍스트와 DB의 상태가 달라져있음
+        // 변경 후
+        // member1 = 10 -> 비회원
+        // member2 = 20 -> 비회원
+        // member3 = 30 -> member3
+        // member4 = 40 -> member4
+
+        // 해결 방법: 깔끔하게 영속성 컨텍스트를 flush 해버리고 clear로 비운다.
+        em.flush();
+        em.clear();
+
+        List<Member> result = queryFactory
+                .selectFrom(member)
+                .fetch();
+
+        for (Member member1 : result) {
+            System.out.println("member1 = " + member1);
+        }
+    }
+
+    @Test
+    public void bulkAdd() {
+        long count = queryFactory
+                .update(member)
+                // add말고 따로 minus는 없음. add(-1)로 쓰면 됨.
+                // 곱하기는 multiply
+                .set(member.age, member.age.add(1))
+                .execute();
+    }
+
+    @Test
+    public void bulkDelete() {
+        queryFactory
+                .delete(member)
+                .where(member.age.gt(18))   // 18살 이상은 삭제
+                .execute();
+    }
+
+    @Test
+    public void sqlFunction() {
+        // 멤버의 이름을 모두 M으로 바꾸기
+        List<String> result = queryFactory
+                .select(
+                        Expressions.stringTemplate(
+                                "function('replace', {0}, {1}, {2})",
+                                member.username, "member", "M"))
+                .from(member)
+                .fetch();
+
+        for (String s : result) {
+            System.out.println("s = " + s);
+        }
+    }
+
+    @Test
+    public void sqlFunction2() {
+        List<String> result = queryFactory
+                .select(member.username)
+                .from(member)
+//                .where(member.username.eq(
+//                        Expressions.stringTemplate("function('lower', {0})", member.username)))
+                .where(member.username.eq(member.username.lower()))
+                .fetch();
+
+        for (String s : result) {
+            System.out.println("s = " + s);
+        }
     }
 }
