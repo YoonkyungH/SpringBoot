@@ -2,13 +2,17 @@ package study.Querydsl.repository;
 
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
+import org.springframework.data.support.PageableExecutionUtils;
 import study.Querydsl.dto.MemberSearchCondition;
 import study.Querydsl.dto.MemberTeamDto;
 import study.Querydsl.dto.QMemberTeamDto;
+import study.Querydsl.entity.Member;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -99,7 +103,25 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
                 .fetch();
 
         // 내가 직접 total count 쿼리를 날리는 것
-        long total = queryFactory
+//        long total = queryFactory
+//                .select(member)
+//                .from(member)
+//                .leftJoin(member.team, team)
+//                .where(
+//                        usernameEq(condition.getUsername()),
+//                        teamNameEq(condition.getTeamName()),
+//                        ageGoe(condition.getAgeGoe()),
+//                        ageLoe(condition.getAgeLoe())
+//                )
+//                .fetchCount();
+//
+//        return new PageImpl<>(content, pageable, total);
+
+        /**
+         * 바로 위의 코드에서 CountQuery 최적화하기
+         * PageableExecutionUtils.getPage()로 최적화
+         */
+        JPAQuery<Member> countQuery = queryFactory
                 .select(member)
                 .from(member)
                 .leftJoin(member.team, team)
@@ -108,10 +130,9 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
                         teamNameEq(condition.getTeamName()),
                         ageGoe(condition.getAgeGoe()),
                         ageLoe(condition.getAgeLoe())
-                )
-                .fetchCount();
+                );
 
-        return new PageImpl<>(content, pageable, total);
+        return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchCount);
     }
 
     // usernameEq, teamNameEq, ageGoe, ageLoe는 재사용 가능
