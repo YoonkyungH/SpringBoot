@@ -10,5 +10,7 @@
 
 - Querydsl: 실전! Querydsl
 
+- advanced: 스프링 핵심 원리 - 고급편
+
 #### 개인 프로젝트
 - FirstSpringSecurity: SpringSecurity로 구현한 로그인 기능
