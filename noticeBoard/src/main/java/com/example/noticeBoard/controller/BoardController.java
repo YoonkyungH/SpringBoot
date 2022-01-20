@@ -6,6 +6,7 @@ import com.example.noticeBoard.domain.photo.Photo;
 import com.example.noticeBoard.domain.photo.PhotoDto;
 import com.example.noticeBoard.domain.photo.PhotoResponseDto;
 import com.example.noticeBoard.service.BoardService;
+import com.example.noticeBoard.service.MemberService;
 import com.example.noticeBoard.service.PhotoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
