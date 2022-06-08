@@ -1,0 +1,4 @@
+.fc-toolbar-chunk {
+    display: flex;      // 일렬로 나란히
+    align-items: center; // 수직 가운데 정렬
+}
