@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dbsrud.webservice.mapper.MemberMapper">
+
+    <select id="findAll" resultType="HashMap">
+        SELECT * FROM member
+    </select>
+
+    <insert id="createMember" parameterType="com.dbsrud.webservice.controller.RequestDTO">
+        insert into member
+        (id, age, password, user_id, username)
+        values
+        (#{id}, #{age}, #{password}, #{user_id}, #{username})
+    </insert>
+
+</mapper>
