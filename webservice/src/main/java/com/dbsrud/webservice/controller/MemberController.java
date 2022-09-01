@@ -32,12 +32,12 @@ public class MemberController {
 //        return new ResponseEntity<>(responseDTO, HttpStatus.OK);
 //    }
 
-    @GetMapping("/")
+    @GetMapping("/memberList")
     public String findAll(Model model) {
 
         model.addAttribute("memberList", memberService.findAll());
 
-        return "index";
+        return "memberList";
     }
 
     @PostMapping("/")

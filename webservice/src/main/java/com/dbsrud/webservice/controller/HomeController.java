@@ -14,7 +14,7 @@ public class HomeController {
     @Autowired
     MemberService memberService;
 
-//    @GetMapping("/")
+    @GetMapping("/")
     public String home() {
         return "index";
     }
